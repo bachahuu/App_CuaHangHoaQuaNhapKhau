@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_container"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Phần Ảnh Sản Phẩm với Chỉ Số Ảnh, Giỏ Hàng và Mũi Tên Điều Hướng -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/giotraicay2" />
+
+                <!-- Điều chỉnh lại RelativeLayout chứa giỏ hàng -->
+                <RelativeLayout
+                    android:id="@+id/cart_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp">
+
+                    <ImageButton
+                        android:id="@+id/cart_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/carts" />
+
+                    <TextView
+                        android:id="@+id/cart_badge"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@id/cart_icon"
+                        android:layout_alignEnd="@id/cart_icon"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/badge_background"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <ImageButton
+                    android:id="@+id/arrow_left"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignTop="@id/cart_icon"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_arrow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_left" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price_sale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="45.000đ/kg"
+                    android:textColor="#ff0000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sold_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã bán 150 ♥"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Phần Ưu đãi -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffebee"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mua tối thiểu đ100K để được giảm đ10K"
+                    android:textColor="#212121"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mua 2 tặng 1 quả chuối"
+                    android:textColor="#212121"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tặng Voucher đ5.000 nếu đơn giao thành công"
+                    android:textColor="#2196f3"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Phần Thông tin Shop và Mô tả -->
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Fruit store"
+                android:textColor="#2196f3"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Xoài chín tự nhiên, ngọt thanh, được trồng tại Đồng Nai, giao hàng trong 24h"
+                android:textColor="#212121"
+                android:textSize="14sp" />
+
+            <!-- Phần Đánh giá chi tiết hơn -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.5 "
+                        android:textColor="#212121"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/star"
+                        android:tint="#FF9800" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Đánh Giá Sản Phẩm (46)"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tất cả ›"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Fixed Button Row at the Bottom -->
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <!-- Nút Chat Ngay -->
+        <LinearLayout
+            android:id="@+id/chat_container"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_messeage"
+                android:tint="#FF0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat ngay"
+                android:textColor="#212121"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Nút Thêm Vào Giỏ Hàng -->
+        <!-- Nút Thêm Vào Giỏ Hàng -->
+        <LinearLayout
+            android:id="@+id/add_to_cart_container"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/add_to_cart"
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:src="@drawable/addcart"
+                android:tint="#FF0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thêm vào giỏ hàng"
+                android:textColor="#212121"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Nút Mua ngay với voucher -->
+        <LinearLayout
+            android:id="@+id/buy_container"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buy_with_voucher_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF0000"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Mua"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

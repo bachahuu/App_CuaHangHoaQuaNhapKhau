@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Duan_appbanhang</string>
+    <string name="discount_percentage">-64%</string>
+    <string name="store_name">Fruit store</string>
+    <string name="product_name">Hoa quả thần thánh</string>
+    <string name="promotion_info">Mua 5 giảm 20%</string>
+    <string name="product_price">₫49.000</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="product_image_description">Hình ảnh sản phẩm</string>
+</resources>

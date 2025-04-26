@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Thanh tiêu đề giỏ hàng -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#FFFFFF">
+
+        <!-- Nút quay lại -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_left"
+            app:tint="@color/primaryColor" />
+
+        <!-- Tiêu đề giỏ hàng -->
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Giỏ hàng (75)"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <!-- Nút Sửa -->
+        <TextView
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/cartIconContainer"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:text="Sửa"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Container for cart icon with badge -->
+        <FrameLayout
+            android:id="@+id/cartIconContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/imgCart"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/carts" />
+
+            <TextView
+                android:id="@+id/txtBadge"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="-5dp"
+                android:layout_marginEnd="-5dp"
+                android:background="@drawable/badge_background"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE" />
+
+    <!-- Danh sách sản phẩm trong giỏ hàng -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp" />
+    <!-- Thông báo giỏ hàng trống -->
+    <TextView
+        android:id="@+id/empty_cart_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Giỏ hàng của bạn đang trống"
+        android:textSize="18sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:visibility="gone" />
+    <!-- Tổng tiền & Nút Thanh toán -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/txtTotalPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tổng: 0đ"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryColor" />
+
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mua hàng"
+            android:backgroundTint="@color/primaryColor"
+            android:textColor="@color/backgroundColor"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

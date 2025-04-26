@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+    <!-- Nội dung chính (Hình ảnh, Thông tin sản phẩm, Giá cả) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <CheckBox
+            android:id="@+id/item_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="83dp" />
+        <!-- Hình ảnh sản phẩm -->
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/giotraicay2" />
+
+        <!-- Thông tin sản phẩm và Giá cả -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="91dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="8dp">
+            <!-- Hàng chứa Tên sản phẩm và Nút Sửa -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Combo vải dâu"
+                    android:textSize="14sp" />
+
+                <!-- Nút sửa (bên phải tên sản phẩm) -->
+                <TextView
+                    android:id="@+id/edit_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sửa"
+                    android:textSize="14sp"
+                    android:textColor="#757575"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+            <!-- Tên sản phẩm và Variant -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <!-- Giá cả -->
+                <!-- Nút tăng/giảm số lượng -->
+
+                <TextView
+                    android:id="@+id/original_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingEnd="8dp"
+                    android:text="440,000"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/border_quantity"
+                    android:divider="@drawable/divider_vertical"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+                    <!-- Nút Giảm -->
+                    <Button
+                        android:id="@+id/decrease_button"
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:text="-"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Số lượng -->
+                    <TextView
+                        android:id="@+id/quantity_text"
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="14sp" />
+
+                    <!-- Nút Tăng -->
+                    <Button
+                        android:id="@+id/increase_button"
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:text="+"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Phần ghi chú sản phẩm (tương tự như voucher trong hình) -->
+    <LinearLayout
+        android:id="@+id/note_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="40dp">
+
+        <!-- Dòng ghi chú - có thể thêm nhiều dòng tương tự -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/note" />
+
+            <TextView
+                android:id="@+id/product_note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                android:text="Ghi chú cho sản phẩm này..."
+                android:textSize="13sp"
+                android:textColor="#757575"
+                android:ellipsize="end"
+                android:maxLines="2" />
+        </LinearLayout>
+        <!-- Có thể thêm đường phân cách ở đây nếu cần -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F0F0F0"/>
+    </LinearLayout>
+</LinearLayout>
