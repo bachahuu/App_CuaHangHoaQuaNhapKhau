@@ -10,9 +10,9 @@ public class Utils {
                 || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
 
         if (isEmulator) {
-            return "http://10.0.2.2:8080/api_banhang/";  // Máy ảo
+            return "http://10.0.2.2/api_banhang/";  // Máy ảo
         } else {
-            return "http://192.168.0.104:8080/api_banhang/"; // Đổi IP theo máy tính của bạn
+            return "http://192.168.1.7/api_banhang/"; // Đổi IP theo máy tính của bạn
         }
     }
 }

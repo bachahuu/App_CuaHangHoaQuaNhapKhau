@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class home_activity extends AppCompatActivity {
-    ImageView giohang,Menu;
+    ImageView giohang,Menu,Order;
     RecyclerView popularRecyclerView;
     popularadapter popularAdapter;
     ViewFlipper slide;
@@ -61,35 +61,41 @@ public class home_activity extends AppCompatActivity {
         // Thiết lập Adapter cho RecyclerView
         popularRecyclerView.setAdapter(popularAdapter);
         fetchPopularProducts();
-        intent_giohang();
-        intent_menu();
+        setupBottomAppBar();
         updateCartBadge();
     }
 
-    private void intent_menu() {
-        Menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home_activity.this,activity_Menu.class);
-                startActivity(intent);
-            }
+    private void setupBottomAppBar() {
+        findViewById(R.id.imageView6).setOnClickListener(v -> {
+                 // Đã ở OrderActivity, không cần chuyển
         });
-    }
 
-    private void intent_giohang() {
-        giohang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home_activity.this, activity_cart.class);
-                startActivityForResult(intent, 1); // Chỉ dùng startActivityForResult
-            }
+        Menu.setOnClickListener(v -> {
+            Intent intent = new Intent(home_activity.this, activity_Menu.class);
+            startActivity(intent);
         });
+
+        giohang.setOnClickListener(v -> {
+            Intent intent = new Intent(home_activity.this, activity_cart.class);
+            startActivityForResult(intent, 1); // Chỉ dùng startActivityForResult
+        });
+
+        Order.setOnClickListener(v -> {
+            Intent intent = new Intent(home_activity.this,OrderActivity.class);
+            startActivity(intent);
+        });
+
+//        findViewById(R.id.img_thongtin).setOnClickListener(v -> {
+//            Intent intent = new Intent(OrderActivity.this, SettingActivity.class);
+//            startActivity(intent);
+//        });
     }
 
     private void anhxa() {
         Menu = findViewById(R.id.img_thucdon);
         giohang = findViewById(R.id.icon_giohang);
         cart_index = findViewById(R.id.activity_menu_sl);
+        Order = findViewById(R.id.img_donhang);
     }
     private void updateCartBadge() {
         String COUNT_API_URL = Utils.getBaseUrl() + "index_cart.php"; // URL của file PHP đếm số lượng

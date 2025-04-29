@@ -545,11 +545,11 @@
 
                         <TextView
                             android:id="@+id/activity_menu_sl"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_gravity="top|end"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginEnd="-1dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginEnd="-1.5dp"
                         android:background="@drawable/badge_background"
                         android:gravity="center"
                         android:text="0"

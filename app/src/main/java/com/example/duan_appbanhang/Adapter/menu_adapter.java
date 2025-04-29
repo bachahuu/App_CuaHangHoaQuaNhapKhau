@@ -37,7 +37,7 @@ public class menu_adapter extends RecyclerView.Adapter<menu_adapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull menu_adapter.ViewHolder holder, int position) {
         item_menu item = itemList.get(position);
-        String imageUrl = item.getImageUrl();
+        String imageUrl = item.getImageUrl().trim();
 
         Log.d("Glide Debug", "Position: " + position + " - Image URL: " + imageUrl);
 

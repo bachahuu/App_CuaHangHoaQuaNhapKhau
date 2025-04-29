@@ -43,65 +43,85 @@
                 android:textSize="18sp" />
 
         </RelativeLayout>
-        <!-- Thanh tìm kiếm -->
-        <LinearLayout
+
+        <!-- Nút trạng thái đơn hàng (thay thế thanh tìm kiếm) -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:scrollbars="none">
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:background="@drawable/border_background">
-                <EditText
-                    android:id="@+id/editTextText2"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_margin="3dp"
-                    android:background="@color/white"
-                    android:drawableStart="@drawable/search_background"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:hint="Search Food, Drink, vv"
-                    android:inputType="text"
-                    android:padding="8dp"
-                    android:textSize="15sp" />
-
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@color/grey"/>
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_margin="8dp"
-                    app:srcCompat="@drawable/kinhlup" />
-            </LinearLayout>
-
-            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp">
-                <!-- Icon hiển thị -->
-                <ImageView
-                    android:id="@+id/imglist"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/list2" />
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <!-- Nút Chờ xác nhận -->
+                <Button
+                    android:id="@+id/btn_choxacnhan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Chờ xác nhận"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/order_status_button_background"
+                    android:textColor="@color/order_status_text_color"
+                    android:stateListAnimator="@null" />
+
+                <!-- Nút Đang chuẩn bị -->
+                <Button
+                    android:id="@+id/btn_dangcb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đang chuẩn bị"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/order_status_button_background"
+                    android:textColor="@color/order_status_text_color"
+                    android:stateListAnimator="@null"/>
+
+                <!-- Nút Đang giao hàng -->
+                <Button
+                    android:id="@+id/btn_danggiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đang giao hàng"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/order_status_button_background"
+                    android:textColor="@color/order_status_text_color"
+                    android:stateListAnimator="@null" />
+
+                <Button
+                    android:id="@+id/btn_dagiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đã giao hàng"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/order_status_button_background"
+                    android:textColor="@color/order_status_text_color"
+                    android:stateListAnimator="@null" />
+
+                <!-- Nút Đã giao hàng -->
+                <Button
+                    android:id="@+id/btn_dahuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đã Huỷ"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:background="@drawable/order_status_button_background"
+                    android:textColor="@color/order_status_text_color"
+                    android:stateListAnimator="@null" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <!-- RecyclerView chiếm toàn bộ không gian còn lại -->

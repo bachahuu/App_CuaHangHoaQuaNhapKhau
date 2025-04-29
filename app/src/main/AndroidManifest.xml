@@ -29,6 +29,7 @@
         <activity android:name=".home.chitietsp"/>
         <activity android:name=".home.activity_Menu"/>
         <activity android:name=".home.activity_cart" />
+        <activity android:name=".home.OrderActivity"/>
     </application>
 
 </manifest>
