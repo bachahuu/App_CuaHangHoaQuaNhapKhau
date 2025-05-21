@@ -1,10 +1,10 @@
-package com.example.duan_appbanhang.home;
+package com.example.duan_appbanhang.Activity.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +12,6 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +19,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.duan_appbanhang.Activity.login.LoginActivity;
 import com.example.duan_appbanhang.Adapter.popularadapter;
-import com.example.duan_appbanhang.Module.popularModule;
+import com.example.duan_appbanhang.Model.item_menu;
 import com.example.duan_appbanhang.R;
 import com.example.duan_appbanhang.utils.ApiClient;
+import com.example.duan_appbanhang.utils.BaseActivity;
 import com.example.duan_appbanhang.utils.Utils;
 
 import org.json.JSONArray;
@@ -34,18 +35,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class home_activity extends AppCompatActivity {
-    ImageView giohang,Menu,Order;
+    ImageView giohang, Menu, Order;
     RecyclerView popularRecyclerView;
     popularadapter popularAdapter;
     ViewFlipper slide;
-    List<popularModule> popularItemList;
+    List<item_menu> popularItemList;
     TextView cart_index;
     private static final String TAG = "home_activity";
-    private  final String API_URL = Utils.getBaseUrl() + "get_sanpham_high_rating.php"; // API lấy danh sách sản phẩm
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_home);
+
+        // Kiểm tra đăng nhập khi vào home
+        if (!isLoggedIn()) {
+            // Nếu chưa đăng nhập thì chuyển về màn hình login
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         slide_quangcao();
         // Khởi tạo RecyclerView
         popularRecyclerView = findViewById(R.id.pop_rec);
@@ -65,9 +76,23 @@ public class home_activity extends AppCompatActivity {
         updateCartBadge();
     }
 
+    private boolean isLoggedIn() {
+        SharedPreferences prefs = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        return prefs.getBoolean("isLoggedIn", false);
+    }
+
+    // Thêm hàm đăng xuất
+    private void logout() {
+        LoginActivity.logout(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
     private void setupBottomAppBar() {
         findViewById(R.id.imageView6).setOnClickListener(v -> {
-                 // Đã ở OrderActivity, không cần chuyển
+            // Đã ở OrderActivity, không cần chuyển
         });
 
         Menu.setOnClickListener(v -> {
@@ -81,7 +106,7 @@ public class home_activity extends AppCompatActivity {
         });
 
         Order.setOnClickListener(v -> {
-            Intent intent = new Intent(home_activity.this,OrderActivity.class);
+            Intent intent = new Intent(home_activity.this, com.example.duan_appbanhang.Activity.home.OrderActivity.class);
             startActivity(intent);
         });
 
@@ -97,8 +122,9 @@ public class home_activity extends AppCompatActivity {
         cart_index = findViewById(R.id.activity_menu_sl);
         Order = findViewById(R.id.img_donhang);
     }
+
     private void updateCartBadge() {
-        String COUNT_API_URL = Utils.getBaseUrl() + "index_cart.php"; // URL của file PHP đếm số lượng
+        String COUNT_API_URL = Utils.getCartCountUrl();
         com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(Request.Method.GET, COUNT_API_URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -143,7 +169,9 @@ public class home_activity extends AppCompatActivity {
         slide.setInAnimation(this, android.R.anim.slide_in_left); // Hiệu ứng khi slide vào
         slide.setOutAnimation(this, android.R.anim.slide_out_right); // Hiệu ứng khi slide ra
     }
+
     private void fetchPopularProducts() {
+        String API_URL = Utils.gethighrating();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -152,12 +180,13 @@ public class home_activity extends AppCompatActivity {
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject item = response.getJSONObject(i);
-                                popularModule product = new popularModule(
-                                        item.getString("TenSanPham"),
-                                        item.getString("MoTa"),
-                                        item.getString("SoSao"),
-                                        item.getString("GiaBan"),
-                                        item.getString("HinhAnh")
+                                item_menu product = new item_menu(
+                                        item.getInt("maSanPham"),
+                                        item.getString("hinhAnh"),
+                                        item.getString("tenSanPham"),
+                                        item.getString("giaBan"),
+                                        item.getDouble("danhGiaTrungBinh"),
+                                        item.getString("moTa")
                                 );
                                 popularItemList.add(product);
                             }

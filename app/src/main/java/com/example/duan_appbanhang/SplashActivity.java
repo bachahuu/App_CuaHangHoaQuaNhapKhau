@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.duan_appbanhang.home.home_activity;
+import com.example.duan_appbanhang.Activity.home.home_activity;
 
 public class SplashActivity extends AppCompatActivity {
     @Override

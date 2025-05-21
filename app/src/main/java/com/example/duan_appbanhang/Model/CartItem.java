@@ -1,4 +1,4 @@
-package com.example.duan_appbanhang.Module;
+package com.example.duan_appbanhang.Model;
 
 public class CartItem {
     private String tenSanPham;
@@ -8,8 +8,9 @@ public class CartItem {
     private double giaBanGoc; // Thêm trường này
     private String note;
     private boolean isSelected; // Lưu trạng thái checkbox
-    private  String masanpham;
-    public CartItem( String masanpham,  String tenSanPham, int soLuong, String hinhAnh, double giaThanh,String note,double giaBanGoc) {
+    private  int masanpham;
+    private int maCart;
+    public CartItem( int masanpham,  String tenSanPham, int soLuong, String hinhAnh, double giaThanh,String note,double giaBanGoc,int maCart) {
         this.masanpham = masanpham;
         this.tenSanPham = tenSanPham;
         this.soLuong = soLuong;
@@ -17,8 +18,18 @@ public class CartItem {
         this.giaThanh = giaThanh;
         this.giaBanGoc = giaBanGoc;
         this.note = note;
-        this.isSelected = false; // Mặc định không chọn
+        this.isSelected = false;
+        this.maCart = maCart;
     }
+
+    public int getMaCart() {
+        return maCart;
+    }
+
+    public void setMaCart(int maCart) {
+        this.maCart = maCart;
+    }
+
     public int tinhTongTien() {
         return (int) (soLuong * giaThanh);
     }
@@ -77,11 +88,11 @@ public class CartItem {
         this.giaBanGoc = giaBanGoc;
     }
 
-    public String getMasanpham() {
+    public int getMasanpham() {
         return masanpham;
     }
 
-    public void setMasanpham(String masanpham) {
+    public void setMasanpham(int masanpham) {
         this.masanpham = masanpham;
     }
 }

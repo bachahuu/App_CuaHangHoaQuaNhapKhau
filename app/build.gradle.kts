@@ -30,33 +30,44 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
-repositories{
+
+repositories {
     google()
     mavenCentral()
 }
+
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    // AndroidX và Material Design
+    implementation(libs.appcompat)
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.activity:activity-ktx:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    // Thêm thư viện đúng cách
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    // Image handling
     implementation("com.makeramen:roundedimageview:2.3.0")
-    //glide
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    // Volley (Thêm vào đây)
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
+    // Networking
     implementation("com.android.volley:volley:1.2.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0") // Đồng bộ phiên bản
-    // Đảm bảo tất cả các thư viện Kotlin sử dụng cùng một phiên bản
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Kotlin
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.22"))
-    //RxJava
-    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
-    implementation ("io.reactivex.rxjava3:rxjava:3.0.0")
-    // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.0.0")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+
+//    implementation ("org.springframework.boot:spring-boot-starter-mail")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 }

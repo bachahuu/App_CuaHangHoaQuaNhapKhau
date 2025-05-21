@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan_appbanhang.Module.order_item;
+import com.example.duan_appbanhang.Model.order_item;
 import com.example.duan_appbanhang.R;
 
 import java.text.DecimalFormat;
@@ -36,7 +36,7 @@ public class order_Adapter extends RecyclerView.Adapter<order_Adapter.OrderViewH
     @Override
     public void onBindViewHolder(@NonNull order_Adapter.OrderViewHolder holder, int position) {
         order_item order = orderlist.get(position);
-        holder.txtOrderId.setText("Mã đơn hàng:" + order.getId());
+        holder.txtOrderId.setText("Mã đơn hàng:" + order.getFormattedMaDonHang());
         // Định dạng ngày đặt hàng
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         holder.txtOrderDate.setText("Ngày đặt: " + dateFormat.format(order.getOrderDate()));

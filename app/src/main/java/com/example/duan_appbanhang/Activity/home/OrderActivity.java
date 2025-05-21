@@ -1,15 +1,13 @@
-package com.example.duan_appbanhang.home;
+package com.example.duan_appbanhang.Activity.home;
 
-import static com.example.duan_appbanhang.Module.order_item.OrderStatus.DELETED;
-import static com.example.duan_appbanhang.Module.order_item.OrderStatus.DELIVERED;
-import static com.example.duan_appbanhang.Module.order_item.OrderStatus.DELIVERING;
-import static com.example.duan_appbanhang.Module.order_item.OrderStatus.PREPARING;
-import static com.example.duan_appbanhang.Module.order_item.OrderStatus.WAITING_CONFIRMATION;
+import static com.example.duan_appbanhang.Model.order_item.OrderStatus.DELIVERED;
+import static com.example.duan_appbanhang.Model.order_item.OrderStatus.DELIVERING;
+import static com.example.duan_appbanhang.Model.order_item.OrderStatus.PREPARING;
+import static com.example.duan_appbanhang.Model.order_item.OrderStatus.WAITING_CONFIRMATION;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,12 +23,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.duan_appbanhang.Adapter.order_Adapter;
-import com.example.duan_appbanhang.Module.order_item;
+import com.example.duan_appbanhang.Model.order_item;
 import com.example.duan_appbanhang.R;
 import com.example.duan_appbanhang.utils.ApiClient;
+import com.example.duan_appbanhang.utils.BaseActivity;
 import com.example.duan_appbanhang.utils.Utils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,7 +49,6 @@ public class OrderActivity extends AppCompatActivity {
     private ImageView btnBack;
     private TextView cart_index;
     private static final String TAG = "home_activity";
-    private  final String API_URL = Utils.getBaseUrl() + "get_order.php"; // API lấy danh sách sản phẩm
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +111,7 @@ public class OrderActivity extends AppCompatActivity {
 //        });
     }
     private void updateCartBadge() {
-        String COUNT_API_URL = Utils.getBaseUrl() + "index_cart.php"; // URL của file PHP đếm số lượng
+        String COUNT_API_URL = Utils.getCartCountUrl(); // URL của file PHP đếm số lượng
         com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(Request.Method.GET, COUNT_API_URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -173,6 +170,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void getOrders() {
+        String API_URL = Utils.getOrdersUrl();
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 API_URL,
@@ -187,17 +185,17 @@ public class OrderActivity extends AppCompatActivity {
                             JSONObject item = response.getJSONObject(i);
                             Date orderDate;
                             try {
-                                orderDate = dateFormat.parse(item.getString("NgayDatHang"));
+                                orderDate = dateFormat.parse(item.getString("ngayDatHang"));
                             } catch (ParseException e) {
                                 Log.e(TAG, "Date Parsing Error: " + e.getMessage());
                                 orderDate = new Date(); // Giá trị mặc định nếu lỗi
                             }
                             order_item order = new order_item(
-                                    item.getInt("MaDonHang"),
+                                    item.getInt("maDonHang"),
                                     orderDate,
-                                    item.getDouble("TongThanhToan"),
-                                    order_item.OrderStatus.fromDisplayName(item.getString("TrangThaiDonHang")),
-                                    item.getString("PhuongThucThanhToan")
+                                    item.getDouble("tongThanhToan"),
+                                    order_item.OrderStatus.fromDisplayName(item.getString("trangThaiDonHang")),
+                                    item.getString("phuongThucThanhToan")
                             );
                             orderList.add(order);
                         }

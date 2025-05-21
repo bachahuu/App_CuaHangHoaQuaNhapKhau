@@ -1,12 +1,14 @@
 package com.example.duan_appbanhang.Adapter;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,19 +17,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
-import com.example.duan_appbanhang.Module.CartItem;
-import com.example.duan_appbanhang.Module.popularModule;
+import com.example.duan_appbanhang.Model.CartItem;
 import com.example.duan_appbanhang.R;
 import com.example.duan_appbanhang.utils.ApiClient;
 import com.example.duan_appbanhang.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
@@ -109,7 +112,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     cartChangeListener.onCartItemCheckedChanged();
                 }
             } else  {
-                xoaSanPhamKhoiDatabase(item.getMasanpham(), holder.getAdapterPosition());
+                // Hiển thị hộp thoại xác nhận trước khi xóa
+                new androidx.appcompat.app.AlertDialog.Builder(context)
+                        .setTitle("Xác nhận xoá")
+                        .setMessage("Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng không?")
+                        .setPositiveButton("Xoá", (dialog, which) -> {
+                            xoaSanPhamKhoiDatabase(item.getMaCart(), holder.getAdapterPosition());
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .show();
             }
         });
         // Thiết lập trạng thái CheckBox
@@ -121,34 +132,62 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 cartChangeListener.onCartItemCheckedChanged();
             }
         });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Hiển thị hộp thoại xác nhận trước khi xóa
+                new androidx.appcompat.app.AlertDialog.Builder(context)
+                        .setTitle("Xác nhận xoá")
+                        .setMessage("Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng không?")
+                        .setPositiveButton("Xoá", (dialog, which) -> {
+                            xoaSanPhamKhoiDatabase(item.getMaCart(), holder.getAdapterPosition());
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
     }
 
-    private void xoaSanPhamKhoiDatabase(String masanpham, int position) {
-        String url = Utils.getBaseUrl() + "delete_cart.php";  // API xóa sản phẩm
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> {
-                    // Xóa khỏi danh sách giỏ hàng
-                    cartList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, cartList.size());
+    private void xoaSanPhamKhoiDatabase(int maCart, int position) {
+        String url = Utils.deleteCartItemUrl(maCart); // Sử dụng URL từ Utils
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            String message = response.getString("message");
+                            if (success) {
+                                // Xóa khỏi danh sách giỏ hàng
+                                cartList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, cartList.size());
 
-                    if (cartChangeListener != null) {
-                        cartChangeListener.onCartItemCheckedChanged();
-                    }
-                    if (deleteListener != null) {
-                        deleteListener.onCartItemDeleted(); // Thông báo xóa để cập nhật số lượng
+                                if (cartChangeListener != null) {
+                                    cartChangeListener.onCartItemCheckedChanged();
+                                }
+                                if (deleteListener != null) {
+                                    deleteListener.onCartItemDeleted(); // Thông báo xóa để cập nhật số lượng
+                                }
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            Log.e(TAG, "JSON Parsing Error: " + e.getMessage());
+                            Toast.makeText(context, "Lỗi phân tích dữ liệu", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
-                error -> error.printStackTrace()) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("MaSanPham", String.valueOf(masanpham));  // Gửi ID sản phẩm cần xóa
-                return params;
-            }
-        };
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "API Error: " + error.toString());
+                        Toast.makeText(context, "Lỗi khi xóa sản phẩm: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        ApiClient.getInstance(context).addToRequestQueue(stringRequest);
+        ApiClient.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
     private void updatePriceDisplay(ViewHolder holder, CartItem item) {
@@ -181,7 +220,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTenSanPham, txtSoLuong, txtGiaThanh,txtnote;
-        ImageView imgHinhAnh;
+        ImageView imgHinhAnh,delete;
         String giaFormatted; // Lưu giá đã định dạng để sử dụng trong onClick
         CheckBox checkBox;
         Button tang , giam;
@@ -195,6 +234,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             checkBox = itemView.findViewById(R.id.item_checkbox);
             tang = itemView.findViewById(R.id.increase_button);
             giam = itemView.findViewById(R.id.decrease_button);
+            delete = itemView.findViewById(R.id.delete_button);
         }
     }
 }

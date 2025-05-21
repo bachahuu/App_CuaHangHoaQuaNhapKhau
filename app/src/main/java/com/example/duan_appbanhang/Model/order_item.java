@@ -1,9 +1,9 @@
-package com.example.duan_appbanhang.Module;
+package com.example.duan_appbanhang.Model;
+
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import retrofit2.http.DELETE;
 
 public class order_item implements Serializable {
     private int id;
@@ -15,9 +15,9 @@ public class order_item implements Serializable {
     // Enum cho các trạng thái đơn hàng
     public enum OrderStatus {
         WAITING_CONFIRMATION("Chờ Xác Nhận"),
-        PREPARING("Đang Chuẩn Bị"),
+        PREPARING("Đang Xử Lý"),
         DELIVERING("Đang Giao"),
-        DELIVERED("Giao Thành Công"),
+        DELIVERED("Đã Giao"),
         DELETED("Đã Hủy");
 
         private final String displayName;
@@ -31,12 +31,28 @@ public class order_item implements Serializable {
         }
         // Thêm phương thức để lấy OrderStatus từ tên hiển thị
         public static OrderStatus fromDisplayName(String displayName) {
-            for (OrderStatus status : values()) {
-                if (status.getDisplayName().equals(displayName)) {
+            if ("ChoXacNhan".equalsIgnoreCase(displayName)) {
+                return WAITING_CONFIRMATION;
+            }
+            if ("DangXuLy".equalsIgnoreCase(displayName)) {
+                return PREPARING;
+            }
+            if ("DangGiao".equalsIgnoreCase(displayName)) {
+                return DELIVERING;
+            }
+            if ("DaGiao".equalsIgnoreCase(displayName)) {
+                return DELIVERED;
+            }
+            if ("DaHuy".equalsIgnoreCase(displayName)) {
+                return DELETED;
+            }
+            for (OrderStatus status : OrderStatus.values()) {
+                if (status.displayName.equals(displayName)) {
                     return status;
                 }
             }
-            throw new IllegalArgumentException("No enum constant with display name: " + displayName);
+            Log.e("OrderStatus", "Unknown status: " + displayName);
+            return WAITING_CONFIRMATION; // Giá trị mặc định
         }
     }
 
@@ -55,6 +71,9 @@ public class order_item implements Serializable {
         return id;
     }
 
+    public String getFormattedMaDonHang() {
+        return "DH" + id;
+    }
 
     public Date getOrderDate() {
         return orderDate;

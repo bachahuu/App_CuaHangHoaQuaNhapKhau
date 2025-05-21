@@ -1,4 +1,4 @@
-package com.example.duan_appbanhang.home;
+package com.example.duan_appbanhang.Activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,9 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.duan_appbanhang.Adapter.menu_adapter;
-import com.example.duan_appbanhang.Module.item_menu;
+import com.example.duan_appbanhang.Model.item_menu;
 import com.example.duan_appbanhang.R;
 import com.example.duan_appbanhang.utils.ApiClient;
+import com.example.duan_appbanhang.utils.BaseActivity;
 import com.example.duan_appbanhang.utils.Utils;
 
 import org.json.JSONArray;
@@ -41,8 +42,7 @@ public class activity_Menu extends AppCompatActivity {
     ImageView list,giohang,Menu,Order,btnback;
     TextView cart_index;
     Spinner spin;
-    private static final String TAG = "home_activity";
-    private  final String API_URL = Utils.getBaseUrl() + "get_menu.php"; // API lấy danh sách sản phẩm
+    private static final String TAG = "activity_Menu";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class activity_Menu extends AppCompatActivity {
         btnback.setOnClickListener(v -> finish());
         //thiết lập nút chuyển tab
         findViewById(R.id.imageView6).setOnClickListener(v -> {
-            Intent intent = new Intent(activity_Menu.this, home_activity.class);
+            Intent intent = new Intent(activity_Menu.this, com.example.duan_appbanhang.Activity.home.home_activity.class);
             startActivity(intent);
         });
 
@@ -81,7 +81,7 @@ public class activity_Menu extends AppCompatActivity {
         });
 
         Order.setOnClickListener(v -> {
-            Intent intent = new Intent(activity_Menu.this,OrderActivity.class);
+            Intent intent = new Intent(activity_Menu.this, com.example.duan_appbanhang.Activity.home.OrderActivity.class);
             startActivity(intent);
         });
 
@@ -91,13 +91,13 @@ public class activity_Menu extends AppCompatActivity {
 //        });
     }
     private void updateCartBadge() {
-        String COUNT_API_URL = Utils.getBaseUrl() + "index_cart.php"; // URL của file PHP đếm số lượng
+        String COUNT_API_URL = Utils.getCartCountUrl(); // Sử dụng URL từ Utils.getCartCountUrl()
         com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(Request.Method.GET, COUNT_API_URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            int count = response.getInt("SoLuong"); // Lấy giá trị SoLuong từ JSON
+                            long count = response.getLong("SoLuong"); // Lấy giá trị SoLuong từ JSON
                             cart_index.setText(String.valueOf(count));
                         } catch (JSONException e) {
                             Log.e(TAG, "JSON Parsing Error: " + e.getMessage());
@@ -139,6 +139,7 @@ public class activity_Menu extends AppCompatActivity {
 
 
     private void getProducts() {
+        String API_URL = Utils.getsanphamurl(); // Sử dụng URL từ Utils.getsanphamurl()
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -148,11 +149,14 @@ public class activity_Menu extends AppCompatActivity {
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject item = response.getJSONObject(i);
-                                Log.d(TAG, "Image URL: " + item.getString("HinhAnh")); // Kiểm tra đường dẫn ảnh
+                                Log.d(TAG, "Image URL: " + item.getString("hinhAnh")); // Kiểm tra đường dẫn ảnh
                                 item_menu product = new item_menu(
-                                        item.getString("HinhAnh"),
-                                        item.getString("TenSanPham"),
-                                        item.getString("GiaBan")
+                                        item.getInt("maSanPham"),
+                                        item.getString("hinhAnh"),
+                                        item.getString("tenSanPham"),
+                                        item.getString("giaBan"),
+                                        item.getDouble("danhGiaTrungBinh"),
+                                        item.getString("moTa")
                                 );
                                 ItemList.add(product);
                             }

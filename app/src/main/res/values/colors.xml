@@ -19,5 +19,13 @@
     <color name="secondaryColor">#FFA726</color> <!-- Cam nhạt -->
     <color name="backgroundColor">#FFFFFF</color> <!-- Trắng -->
     <color name="textColor">#212121</color> <!-- Màu chữ tối -->
-
+    <color name="green_500">#4CAF50</color>
+    <color name="gray_600">#757575</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="gray_700">#616161</color>
+    <!-- Màu chủ đạo -->
+    <color name="orange_primary">#FF9800</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="gray_dark">#424242</color>
+    <color name="gray_medium">#757575</color>
 </resources>

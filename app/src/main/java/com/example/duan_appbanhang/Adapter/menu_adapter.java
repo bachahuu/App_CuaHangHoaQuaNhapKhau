@@ -1,6 +1,7 @@
 package com.example.duan_appbanhang.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.duan_appbanhang.Module.item_menu;
+import com.example.duan_appbanhang.Model.item_menu;
 import com.example.duan_appbanhang.R;
+import com.example.duan_appbanhang.Activity.home.chitietsp;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -65,6 +67,20 @@ public class menu_adapter extends RecyclerView.Adapter<menu_adapter.ViewHolder> 
         }
         // Hiển thị giá trên giao diện
         holder.txtPrice.setText(holder.giaFormatted);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, chitietsp.class);
+                intent.putExtra("TenSanPham", item.getProductName());
+                intent.putExtra("maSanPham", item.getMasanpham());
+                intent.putExtra("danhGiaTrungBinh", item.getDanhgiatrungbinh());     // nếu có
+                intent.putExtra("GiaBan", item.getPrice());
+                intent.putExtra("GiaFormat", holder.giaFormatted);
+                intent.putExtra("HinhAnh", item.getImageUrl());
+                intent.putExtra("MoTa",item.getMota());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

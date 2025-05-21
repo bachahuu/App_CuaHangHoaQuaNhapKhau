@@ -18,18 +18,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.home_activity"/>
-        <activity android:name=".home.chitietsp"/>
-        <activity android:name=".home.activity_Menu"/>
-        <activity android:name=".home.activity_cart" />
-        <activity android:name=".home.OrderActivity"/>
+        <activity android:name=".SplashActivity"/>
+        <activity android:name=".Activity.home.home_activity"/>
+        <activity android:name=".Activity.home.chitietsp"/>
+        <activity android:name=".Activity.home.activity_Menu"/>
+        <activity android:name=".Activity.home.activity_cart" />
+        <activity android:name=".Activity.home.OrderActivity"/>
+        <activity android:name=".Activity.home.activity_thanhtoan"/>
+        <activity android:name=".Activity.home.activity_voucher"/>
+        <activity android:name=".Activity.login.SignUpActivity"/>
+        <activity android:name=".Activity.login.VerificationActivity"/>
+        <activity android:name=".Activity.login.ForgotPasswordActivity"/>
+        <activity android:name=".Activity.login.ResetPasswordActivity"/>
+        <activity android:name=".Activity.home.addressActivity"/>
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingStart="8dp">
-            <!-- Hàng chứa Tên sản phẩm và Nút Sửa -->
+            <!-- Hàng chứa Tên sản phẩm và Nút thùng rác -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,17 +47,18 @@
                     android:text="Combo vải dâu"
                     android:textSize="14sp" />
 
-                <!-- Nút sửa (bên phải tên sản phẩm) -->
-                <TextView
-                    android:id="@+id/edit_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sửa"
-                    android:textSize="14sp"
-                    android:textColor="#757575"
-                    android:padding="4dp"
+                <!-- Thay thế nút sửa bằng icon thùng rác -->
+                <ImageView
+                    android:id="@+id/delete_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:src="@drawable/ic_delete"
+                    app:tint="#757575"
+                    android:contentDescription="Xóa sản phẩm" />
             </LinearLayout>
             <!-- Tên sản phẩm và Variant -->
             <LinearLayout

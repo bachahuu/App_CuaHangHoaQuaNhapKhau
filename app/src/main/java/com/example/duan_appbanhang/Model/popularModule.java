@@ -1,4 +1,4 @@
-package com.example.duan_appbanhang.Module;
+package com.example.duan_appbanhang.Model;
 
 import com.google.gson.annotations.SerializedName;
 
